@@ -1,14 +1,17 @@
 "use client";
-import Chart, { Location } from "@/components/Chart";
+import GenerateChart from "@/components/Chart";
+import Chart, { MapLocation } from "@/components/Chart";
 import { useState } from "react";
 
 //Demo of generating a map of coordinates that can be selected
 export default function MapPage() {
   const [mapDescription, setMapDescription] = useState<string>("");
   const [mapPrompt, setMapPrompt] = useState<string>("");
-  const [selectedLocation, setSelectedLocation] = useState<Location | null>(
+  const [selectedLocation, setSelectedLocation] = useState<MapLocation | null>(
     null
   );
+
+  const handleCreate = (locations: MapLocation[]) => {};
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
@@ -24,9 +27,11 @@ export default function MapPage() {
             Create Map
           </button>
           <span className="text-xl">{selectedLocation?.description}</span>
-          <Chart
+          <GenerateChart
+            bounds={"(0,0),(100,100)"}
             prompt={mapPrompt}
-            onSelect={(location: Location) => setSelectedLocation(location)}
+            onSelect={(location: MapLocation) => setSelectedLocation(location)}
+            onCreate={handleCreate}
           />
         </div>
       </div>

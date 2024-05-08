@@ -3,36 +3,54 @@
 import { getGroqCompletion } from "@/ai/groq";
 import { generateCoordinatesPrompt } from "@/ai/prompts";
 import { useEffect, useState } from "react";
-export type Location = {
+export type MapLocation = {
   description: string;
   coordinates: { x: number; y: number };
 };
 
-export default function Chart({
+//Component for generating features within a given bounds of max - min coordinates
+export default function GenerateChart({
+  bounds,
   prompt,
   onSelect,
+  onCreate,
 }: {
+  bounds: string;
   prompt: string;
-  onSelect: (location: Location) => void;
+  onSelect: (location: MapLocation) => void;
+  onCreate: (locations: MapLocation[]) => void;
 }) {
-  const [locations, setLocations] = useState<Location[]>([]);
+  const [locations, setLocations] = useState<MapLocation[]>([]);
 
   //create some coordinates when the prompt changes
   useEffect(() => {
     //call Groq to generate coordinates
     const generateCoordinates = async () => {
       const coordinatesString = await getGroqCompletion(
-        prompt,
+        `Description: ${prompt}, Bounds: ${bounds}`,
         256,
         generateCoordinatesPrompt,
         true
       );
       const coordinates = JSON.parse(coordinatesString);
+      onCreate(coordinates.map);
       setLocations(coordinates.map);
     };
     if (prompt !== "") generateCoordinates();
   }, [prompt]);
 
+  //display coordinates as a full screen map
+  return <Chart locations={locations} onSelect={onSelect} />;
+}
+
+//Component for rendering an array of Location objects as buttons
+export function Chart({
+  locations,
+  onSelect,
+}: {
+  locations: MapLocation[];
+  onSelect: (location: MapLocation) => void;
+}) {
   //display coordinates as a full screen map
   return (
     <div className="h-full w-full bg-gray-200">

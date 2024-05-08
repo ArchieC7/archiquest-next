@@ -26,11 +26,32 @@ Secrets are not saved to github and you will need to add them to the local copy 
 
 Create a new file called `.env.local` in the root directory of the project folder (e.g. under README.md).
 
-In this file, add two environment variables as follows. Replace `your_key` with your GROQ and FAL keys. You don't need quotation marks or semicolons at the end of the line - just paste in the key string.
+In this file, add two environment variables as follows. Replace `your_key` with your API key value. You don't need quotation marks or semicolons at the end of the line - just paste in the key string.
+
+Environment variables in the project use specific names, so make sure you don't have any types and follow these names exactly.
 
 ```JS
 GROQ=your_key
-FAL=your_key
+FAL_KEY=your_key
+```
+
+If you want to use Google Gemini (which allows for very large prompts including images) then you will also need to add your Gemini API key
+
+```JS
+GEMINI=your_key
+```
+
+If you want to use Deepgram (for fast test to speech) then add your Deepgram API key
+
+```JS
+DEEPGRAM=your_key
+```
+
+If you are using Supabase as a database, then you should also add your supabase keys:
+
+```JS
+SUPABASE_KEY=your_service_account_key
+SUPABASE_URL=your_database_url
 ```
 
 ## Running the project

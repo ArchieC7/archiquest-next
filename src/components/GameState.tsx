@@ -1,7 +1,6 @@
 //Component for displaying and updating game state
 
 import { getGroqCompletion } from "@/ai/groq";
-import { get } from "http";
 import { useEffect, useState } from "react";
 
 //Runs a callback function whenever the state updates

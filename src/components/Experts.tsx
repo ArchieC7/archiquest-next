@@ -5,11 +5,13 @@ import { useEffect, useState } from "react";
 export default function Experts({
   initState,
   systemPrompts,
+  analysisPrompt,
   maxTokens,
   handleResponse,
 }: {
   initState: any;
   systemPrompts: string[];
+  analysisPrompt: string;
   maxTokens: number;
   handleResponse: (response: any) => void;
 }) {

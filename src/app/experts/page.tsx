@@ -2,6 +2,8 @@
 import Experts from "@/components/Experts";
 import { useState } from "react";
 
+//Anything you want in your scenario to track over time goes here
+//This should really be things like current challenges, disasters, successes, design issues etc
 const initState = {
   project:
     "A change in the worlds transport through the Panama Canal sees the canal reduced to 50% usage to save the Lake Gutan from drought. The other 50% of transport through this area will be a blimp ferrying system where blimps ferry cargo from each side of the canal in order to bypass using the canal. This range will increase overtime in order for the lake to be 100% free of shipping and restored to being an undisturbed envirnoment. When airships reach this point the technology of blimps have becomed so advanced that the worlds reliance of shipping will be reshaped to involve airshipping ",
@@ -83,6 +85,10 @@ export default function ExpertPage() {
           <Experts
             initState={state}
             systemPrompts={systemPrompts}
+            analysisPrompt={`You will be provided with the current state of a forestry project as well as 
+            A series of SWOT analysis of the project from the point of view of different stakeholder groups. 
+            Use the analysis to predict changes in the project state JSON object. 
+             Only return the JSON object with no other text or explanation.`}
             maxTokens={512}
             handleResponse={handleResponse}
           />

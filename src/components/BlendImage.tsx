@@ -1,14 +1,15 @@
-import { generateImageFal } from "@/ai/fal";
-import { getGroqCompletion } from "@/ai/groq";
 import { useEffect, useState } from "react";
 
 type BlendImageProps = {
-  image: string;
+  src: string;
   fullscreen: boolean;
 };
 
 //blends an new image over the top of any previously rendered image
-export default function BlendImage({ image, fullscreen }: BlendImageProps) {
+export default function BlendImage({
+  src: image,
+  fullscreen,
+}: BlendImageProps) {
   const [currentImg, setCurrentImg] = useState<string>("");
   const [nextImg, setNextImg] = useState<string>("");
 

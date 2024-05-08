@@ -9,7 +9,7 @@ type Tag = {
 
 //Generates a tag cloud (list of strings) using a prompt and total number of tags
 //The handleSelect callback is called whenever a tag is selected
-export default function TagCloud({
+export default function GenerateTagCloud({
   prompt,
   totalTags,
   handleSelect,
@@ -35,18 +35,33 @@ export default function TagCloud({
     generateTags();
   }, [prompt, totalTags]);
 
+  if (!tags.length) return <div>Loading...</div>;
+  //render the tags
+  return <TagCloud tags={tags} handleSelect={handleSelect} />;
+}
+
+//Component for rendering the tags and handling selection
+export function TagCloud({
+  tags,
+  handleSelect,
+}: {
+  tags: Tag[];
+  handleSelect: (selectedTags: string[]) => void;
+}) {
+  const [tagSelections, setTagSelections] = useState<Tag[]>(tags);
+
   //When a tag is selected, update the state and call the handleSelect callback
   function handleTagSelect(index: number) {
     const newTags = [...tags];
     newTags[index].selected = !newTags[index].selected;
-    setTags(newTags);
+    setTagSelections(newTags);
     handleSelect(newTags.filter((tag) => tag.selected).map((tag) => tag.text));
   }
 
   //render the tags
   return (
     <div className="flex justify-between w-full flex-wrap">
-      {tags.map((t, i) => (
+      {tagSelections.map((t, i) => (
         <button
           onClick={() => handleTagSelect(i)}
           key={i}
