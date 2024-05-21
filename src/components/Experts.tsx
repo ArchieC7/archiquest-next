@@ -47,7 +47,9 @@ export default function Experts({
         ","
       )}`,
       maxTokens,
-      analysisPrompt,
+      `From the stakeholder analysis it is your job to create a critical and borderline pessimistic 3 year prediction of the events. You will be provided with the current state of a transport project.
+      Use the analysis to predict changes in the project state JSON object. 
+      Include a summary of your reasoning in the annualReport field. Only return the JSON object with no other text or explanation.`,
       true
     );
     return JSON.parse(newState);
